@@ -29,6 +29,8 @@ class model():
         x=coord[0]
         return self.data[z][(x,y)]
 
+    
+
     def save(self,filename):
         zf = ZipFile(filename,'w',zipfile.ZIP_LZMA)
         meta = zf.open('meta.txt','w')
@@ -44,7 +46,8 @@ class model():
             for y in range(self.dims[1]):
                 for x in range(self.dims[0]):
                     try:
-                        l.write(str(self.get_pixel((x,y,z))))
+                        p = self.get_pixel((x,y,z))
+                        l.write(str(p))
                     except:
                         l.write(str([0,0,0,0]))
                     l.write('\n')
@@ -52,7 +55,9 @@ class model():
         zf.close()
 
     def load(self,filename):
-        pass
+        zf = ZipFile(filename,'r',zipfile.ZIP_LZMA)
+        meta = zf.open('meta.txt','r')
+        
 
 if __name__ == '__main__':
     m = model()
