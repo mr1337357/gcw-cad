@@ -20,7 +20,9 @@ if __name__ == '__main__':
         for y in range(int(dimensions[1])):
             for x in range(int(dimensions[0])):
                 px = layer.getpixel((x,y))
-                if(px[3]>128):
-                    scad.write('translate([{},{},{}])'.format(x,y,z))
+                px = [float(n)/255 for n in px]
+                if(px[3]>0):
+                    scad.write('translate([{},{},{}]) '.format(x,y,z))
+                    scad.write('color([{},{},{},{}]) '.format(px[0],px[1],px[2],px[3]))
                     scad.write('\tcube();\n')
-                print(px)
+                #print(px)
